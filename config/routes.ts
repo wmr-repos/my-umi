@@ -126,6 +126,11 @@ const antdMenu = [
     path: '/antd/formList',
     component: './Antd/FormList',
   },
+  {
+    name:'受控组件与非受控组件',
+    path:'/antd/controllerAndUnController',
+    component:'./Antd/ControllerAndUnController'
+  }
 ]
 
 // 自定义hook

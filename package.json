@@ -1,6 +1,5 @@
 {
   "private": true,
-  "author": "wmr <wmr455800@digital-engine.com>",
   "scripts": {
     "build": "max build",
     "dev": "max dev",
