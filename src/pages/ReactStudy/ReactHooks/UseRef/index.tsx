@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { Reducer, useEffect, useReducer, useRef, useState } from 'react'
 
 const Index: React.FC<any> = () => {
   const scrollRef = useRef<any>(null)
@@ -17,8 +17,18 @@ const Index: React.FC<any> = () => {
     }
   }
 
+  const inputRef = useRef<HTMLInputElement>(null)
+  useEffect(() => {
+    inputRef.current?.focus()
+  })
+
+  const numRef = useRef<number>(0)
+  const [_, forceRender] = useState(0)
+
+
   return (
     <>
+      <p>案例一</p>
       <div>
         <p>可视区域高度：{clientHeight}</p>
         <p>滚动条滚动高度：{scrollTop}</p>
@@ -30,6 +40,21 @@ const Index: React.FC<any> = () => {
         onScroll={onScroll}
       >
         <div style={{ height: 2000 }}></div>
+      </div>
+      <p>案例二</p>
+      <div>
+        <input ref={inputRef}></input>
+      </div>
+      <p>案例三</p>
+      <div>
+        <div
+          onClick={() => {
+            numRef.current += 1
+            forceRender(Math.random())
+          }}
+        >
+          {numRef.current}
+        </div>
       </div>
     </>
   )

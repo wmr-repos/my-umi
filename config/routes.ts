@@ -127,10 +127,10 @@ const antdMenu = [
     component: './Antd/FormList',
   },
   {
-    name:'受控组件与非受控组件',
-    path:'/antd/controllerAndUnController',
-    component:'./Antd/ControllerAndUnController'
-  }
+    name: '受控组件与非受控组件',
+    path: '/antd/controllerAndUnController',
+    component: './Antd/ControllerAndUnController',
+  },
 ]
 
 // 自定义hook
@@ -191,6 +191,11 @@ const reactHooksMenu = [
     component: './ReactStudy/ReactHooks/UseStateObject',
   },
   {
+    name: 'useEffect',
+    path: '/reactStudy/reactHooks/useEffect',
+    component: './ReactStudy/ReactHooks/UseEffect',
+  },
+  {
     name: 'useContext',
     path: '/reactStudy/reactHooks/useContext',
     component: './ReactStudy/ReactHooks/UseContext',
@@ -232,6 +237,39 @@ const reactHooksMenu = [
   },
 ]
 
+// react闭包陷阱
+const ClosureMemu = [
+  {
+    path: '/reactStudy/closure',
+    redirect: '/reactStudy/closure/closureDemo',
+  },
+  {
+    name: '闭包案例',
+    path: '/reactStudy/closure/closureDemo',
+    component: './ReactStudy/Closure/ClosureDemo',
+  },
+  {
+    name: '闭包一',
+    path: '/reactStudy/closure/closureOne',
+    component: './ReactStudy/Closure/ClosureOne',
+  },
+  {
+    name: '闭包二',
+    path: '/reactStudy/closure/closureTwo',
+    component: './ReactStudy/Closure/ClosureTwo',
+  },
+  {
+    name: '闭包三',
+    path: '/reactStudy/closure/closureThree',
+    component: './ReactStudy/Closure/ClosureThree',
+  },
+  {
+    name: '闭包四',
+    path: '/reactStudy/closure/closureFour',
+    component: './ReactStudy/Closure/ClosureFour',
+  },
+]
+
 // react 学习
 const reactStudyMenu = [
   {
@@ -252,6 +290,52 @@ const reactStudyMenu = [
     name: '自定义hooks',
     path: '/reactStudy/customHooks',
     routes: customHooksMenu,
+  },
+  {
+    name: '闭包问题',
+    path: '/reactStudy/closure',
+    routes: ClosureMemu,
+  },
+  {
+    name: '调试',
+    path: '/reactStudy/debug',
+    component: './ReactStudy/Debug',
+  },
+]
+
+// 日历组件
+const CalendarMenu = [
+  {
+    path: '/customCom/calendar',
+    redirect: '/customCom/calendar/calendarOne',
+  },
+  {
+    name: '日历一',
+    path: '/customCom/calendar/calendarOne',
+    component: './CustomCom/Calendar/CalendarOne',
+  },
+  {
+    name: '日历二',
+    path: '/customCom/calendar/calendarTwo',
+    component: './CustomCom/Calendar/CalendarTwo',
+  },
+  {
+    name: '日历三',
+    path: '/customCom/calendar/calendarThree',
+    component: './CustomCom/Calendar/CalendarThree',
+  },
+]
+
+// 自定义组件
+const customComMemu = [
+  {
+    path: '/customCom',
+    redirect: '/customCom/calendar',
+  },
+  {
+    name: '日历',
+    path: '/customCom/calendar',
+    routes: CalendarMenu,
   },
 ]
 
@@ -274,6 +358,11 @@ export const routes = [
     name: '表格示例',
     path: '/table',
     routes: tableMenu,
+  },
+  {
+    name: '自定义组件',
+    path: '/customCom',
+    routes: customComMemu,
   },
   {
     name: '操作',

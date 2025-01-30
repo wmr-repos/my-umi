@@ -1,11 +1,13 @@
 import { Button, Flex } from 'antd'
 import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 
-interface ChildProps {
+interface ChildRef {
   add: () => void
 }
 
-const Child: React.FC<any> = forwardRef<ChildProps>((props, cref) => {
+interface ChildProps {}
+
+const Child = forwardRef<ChildRef, ChildProps>((props, cref) => {
   const [count, setCount] = useState(0)
 
   const add = () => {
@@ -30,7 +32,7 @@ const Child: React.FC<any> = forwardRef<ChildProps>((props, cref) => {
 })
 
 const Index: React.FC = () => {
-  const ref = useRef<ChildProps>(null)
+  const ref = useRef<ChildRef>(null)
 
   return (
     <>
