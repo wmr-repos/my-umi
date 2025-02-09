@@ -301,6 +301,11 @@ const reactStudyMenu = [
     path: '/reactStudy/debug',
     component: './ReactStudy/Debug',
   },
+  {
+    name: 'Suspense',
+    path: '/reactStudy/suspense',
+    component: './ReactStudy/Suspense',
+  },
 ]
 
 // 日历组件
@@ -326,6 +331,24 @@ const CalendarMenu = [
   },
 ]
 
+// 图标
+const IconMenu = [
+  {
+    path: '/customCom/icon',
+    redirect: '/customCom/icon/antdIcon',
+  },
+  {
+    name: 'antd组件库图标',
+    path: '/customCom/icon/antdIcon',
+    component: './CustomCom/Icon/AntdIcon',
+  },
+  {
+    name: '自定义图标',
+    path: '/customCom/icon/customIcon',
+    component: './CustomCom/Icon/CustomIcon',
+  },
+]
+
 // 自定义组件
 const customComMemu = [
   {
@@ -336,6 +359,11 @@ const customComMemu = [
     name: '日历',
     path: '/customCom/calendar',
     routes: CalendarMenu,
+  },
+  {
+    name: '图标',
+    path: '/customCom/icon',
+    routes: IconMenu,
   },
 ]
 

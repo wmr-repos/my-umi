@@ -1,0 +1,21 @@
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.icon {
+  display: inline-block;
+}
+
+// spin：上面定义的动画
+// 1s：动画完成一个循环需要的时间
+// liner：动画的速度变化时均匀的
+// infinite：动画将无限次循环播放
+.icon-spin {
+  animation: spin 1s liner infinite;
+}
