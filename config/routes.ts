@@ -349,6 +349,24 @@ const IconMenu = [
   },
 ]
 
+// space 布局组件
+const SpaceMenu = [
+  {
+    path: '/customCom/space',
+    redirect:'/customCom/space/antdSpace'
+  },
+  {
+    name: 'antdSpace',
+    path: '/customCom/space/antdSpace',
+    component: './CustomCom/CustomSpace/AntdSpace',
+  },
+  {
+    name: 'customSpace',
+    path: '/customCom/space/customSpace',
+    component: './CustomCom/CustomSpace/CustomSpace',
+  },
+]
+
 // 自定义组件
 const customComMemu = [
   {
@@ -365,6 +383,11 @@ const customComMemu = [
     path: '/customCom/icon',
     routes: IconMenu,
   },
+  {
+    name:'space',
+    path: '/customCom/space',
+    routes: SpaceMenu,
+  }
 ]
 
 export const routes = [
