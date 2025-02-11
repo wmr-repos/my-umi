@@ -1,0 +1,28 @@
+.spaceItem {
+}
+
+.space {
+  display: inline-flex;
+
+  &_vertical {
+    flex-direction: column;
+  }
+
+  &_align {
+    &_center {
+      align-items: center;
+    }
+
+    &_start {
+      align-items: flex-start;
+    }
+
+    &_end {
+      align-items: flex-end;
+    }
+
+    &_baseline {
+      align-items: baseline;
+    }
+  }
+}
