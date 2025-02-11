@@ -13,6 +13,7 @@ export default defineConfig({
   },
   routes: routes,
   npmClient: 'pnpm',
+  
   // TODO: 这是错误的写法，正确的写法不知道
   // plugins: [
   //   AutoImport({

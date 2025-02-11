@@ -306,6 +306,11 @@ const reactStudyMenu = [
     path: '/reactStudy/suspense',
     component: './ReactStudy/Suspense',
   },
+  {
+    name:'ChildrenReplace',
+    path: '/reactStudy/childrenReplace',
+    component: './ReactStudy/ChildrenReplace'
+  }
 ]
 
 // 日历组件
