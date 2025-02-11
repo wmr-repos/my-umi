@@ -307,10 +307,10 @@ const reactStudyMenu = [
     component: './ReactStudy/Suspense',
   },
   {
-    name:'ChildrenReplace',
+    name: 'ChildrenReplace',
     path: '/reactStudy/childrenReplace',
-    component: './ReactStudy/ChildrenReplace'
-  }
+    component: './ReactStudy/ChildrenReplace',
+  },
 ]
 
 // 日历组件
@@ -358,7 +358,7 @@ const IconMenu = [
 const SpaceMenu = [
   {
     path: '/customCom/space',
-    redirect:'/customCom/space/antdSpace'
+    redirect: '/customCom/space/antdSpace',
   },
   {
     name: 'antdSpace',
@@ -389,9 +389,32 @@ const customComMemu = [
     routes: IconMenu,
   },
   {
-    name:'space',
+    name: 'space',
     path: '/customCom/space',
     routes: SpaceMenu,
+  },
+]
+
+// 三种常见的组件封装
+const threePackageMenu = [
+  {
+    path: '/threePackage',
+    redirect: '/threePackage/portal',
+  },
+  {
+    name: 'Portal',
+    path: '/threePackage/portal',
+    component: './ThreePackage/Portal',
+  },
+  {
+    name: 'MutateObserver',
+    path: '/threePackage/mutateObserver',
+    component: './ThreePackage/MutateObserver',
+  },
+  {
+    name:'CopyToClipboard',
+    path: '/threePackage/copyToClipboard',
+    component: './ThreePackage/CopyToClipboard',
   }
 ]
 
@@ -444,5 +467,10 @@ export const routes = [
     name: 'reactStudy',
     path: '/reactStudy',
     routes: reactStudyMenu,
+  },
+  {
+    name: 'ThreePackage',
+    path: '/threePackage',
+    routes: threePackageMenu,
   },
 ]
