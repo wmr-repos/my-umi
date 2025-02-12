@@ -101,6 +101,11 @@ const operateMenu = [
     path: '/operate/closure',
     component: './Operate/Closure',
   },
+  {
+    name:'浏览器的observe',
+    path: '/operate/observe',
+    component: './Operate/Observe'
+  }
 ]
 
 const commMenu = [
