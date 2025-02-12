@@ -71,6 +71,39 @@ const throttleAndDebounceMenu = [
   },
 ]
 
+// 浏览器的observer
+const ObserverMenu = [
+  {
+    path: '/operate/observer',
+    redirect: '/operate/observer/intersectionObserver',
+  },
+  {
+    name: 'IntersectionObserver',
+    path: '/operate/observer/intersectionObserver',
+    component: './Operate/Observer/IntersectionObserver',
+  },
+  {
+    name: 'MutationObserver',
+    path: '/operate/observer/mutationObserver',
+    component: './Operate/Observer/MutationObserver',
+  },
+  {
+    name: 'ResizeObserver',
+    path: '/operate/observer/resizeObserver',
+    component: './Operate/Observer/ResizeObserver',
+  },
+  {
+    name: 'PerformanceObserver',
+    path: '/operate/observer/performanceObserver',
+    component: './Operate/Observer/PerformanceObserver',
+  },
+  {
+    name: 'ReportingObserver',
+    path: '/operate/observer/reportingObserver',
+    component: './Operate/Observer/ReportingObserver',
+  },
+]
+
 // 操作菜单
 const operateMenu = [
   {
@@ -102,10 +135,10 @@ const operateMenu = [
     component: './Operate/Closure',
   },
   {
-    name:'浏览器的observe',
-    path: '/operate/observe',
-    component: './Operate/Observe'
-  }
+    name: '浏览器的observe',
+    path: '/operate/observer',
+    routes: ObserverMenu,
+  },
 ]
 
 const commMenu = [
@@ -377,6 +410,24 @@ const SpaceMenu = [
   },
 ]
 
+// Watermark 水印组件
+const WatermarkMenu = [
+  {
+    path: '/customCom/watermark',
+    redirect: '/customCom/watermark/antdWatermark',
+  },
+  {
+    name: 'antdWatermark',
+    path: '/customCom/watermark/antdWatermark',
+    component: './CustomCom/CustomWatermark/AntdWatermark',
+  },
+  {
+    name: 'customWatermark',
+    path: '/customCom/watermark/customWatermark',
+    component: './CustomCom/CustomWatermark/CustomWatermark',
+  },
+]
+
 // 自定义组件
 const customComMemu = [
   {
@@ -398,6 +449,11 @@ const customComMemu = [
     path: '/customCom/space',
     routes: SpaceMenu,
   },
+  {
+    name: 'Watermark',
+    path: '/customCom/watermark',
+    routes: WatermarkMenu,
+  },
 ]
 
 // 三种常见的组件封装
@@ -417,10 +473,10 @@ const threePackageMenu = [
     component: './ThreePackage/MutateObserver',
   },
   {
-    name:'CopyToClipboard',
+    name: 'CopyToClipboard',
     path: '/threePackage/copyToClipboard',
     component: './ThreePackage/CopyToClipboard',
-  }
+  },
 ]
 
 export const routes = [
