@@ -1,10 +1,10 @@
-const Index = () => {
-  return (
-    <div>
-      <div id="box1">BOX111</div>
-      <div id="box2">BOX222</div>
-    </div>
-  )
-}
+import { Watermark } from 'antd'
+import React from 'react'
+
+const Index: React.FC = () => (
+  <Watermark content="Ant Design">
+    <div style={{ height: 500 }} />
+  </Watermark>
+)
 
 export default Index
