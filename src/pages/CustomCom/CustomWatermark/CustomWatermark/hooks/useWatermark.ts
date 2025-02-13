@@ -80,6 +80,7 @@ const getCanvasData = (
 export default function useWatermark(params: WatermarkOptions) {
   const [options, setOptions] = useState(params || {})
 
+
   const watermarkDivRef = useRef<HTMLDivElement>(null)
 
   function drawWatermark() {}
@@ -87,7 +88,7 @@ export default function useWatermark(params: WatermarkOptions) {
   useEffect(() => {
     drawWatermark()
   }, [options])
-
+  
   return {
     generateWatermark: (newOptions: WatermarkOptions) => {
       setOptions(merge({}, options, newOptions))
