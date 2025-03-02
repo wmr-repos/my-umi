@@ -81,11 +81,128 @@ const getCanvasData = (
   const ctx = canvas.getContext('2d')!
   const ratio = window.devicePixelRatio
 
-  const configCanvas = (size: { width: number; height: number }) => {}
+  // 用来设置 canvas 的宽高、rotate、scale
+  const configCanvas = (size: { width: number; height: number }) => {
+    const canvasWidth = gap[0] + size.width
+    const canvasHeight = gap[1] + size.height
 
-  const drawText = () => {}
+    canvas.setAttribute('width', `${canvasWidth * ratio}px`)
+    canvas.setAttribute('height', `${canvasHeight * ratio} px`)
+    canvas.style.width = `${canvasWidth}px`
+    canvas.style.height = `${canvasHeight}px`
 
-  const drawImage = () => {}
+    ctx.translate((canvasWidth * ratio) / 2, (canvasHeight * ratio) / 2)
+    ctx.scale(ratio, ratio)
+
+    const RotateAngle = (rotate * Math.PI) / 180
+    ctx.rotate(RotateAngle)
+  }
+
+  const measureTextSize = (
+    ctx: CanvasRenderingContext2D,
+    content: string[],
+    rotate: number,
+  ) => {
+    let width = 0
+    let height = 0
+    const lineSize: Array<{ width: number; height: number }> = []
+
+    content.forEach((item) => {
+      const {
+        width: textWidth,
+        fontBoundingBoxAscent,
+        fontBoundingBoxDescent,
+      } = ctx.measureText(item)
+
+      const textHeight = fontBoundingBoxAscent + fontBoundingBoxDescent
+
+      if (textWidth > width) {
+        width = textWidth
+      }
+
+      height += textHeight
+      lineSize.push({ height: textHeight, width: textWidth })
+    })
+
+    const angle = (rotate * Math.PI) / 180
+
+    return {
+      originWidth: width,
+      originHeight: height,
+      width: Math.ceil(
+        Math.abs(Math.sin(angle) * height) + Math.abs(Math.cos(angle) * width),
+      ),
+      height: Math.ceil(
+        Math.abs(Math.sin(angle) * width) + Math.abs(height * Math.cos(angle)),
+      ),
+      lineSize,
+    }
+  }
+
+  const drawText = () => {
+    const { fontSize, color, fontWeight, fontFamily } = fontStyle
+    const realFontSize = toNumber(fontSize, 0) || fontStyle.fontSize
+
+    ctx.font = `${fontWeight} ${realFontSize}px ${fontFamily}`
+    const measureSize = measureTextSize(ctx, [...content], rotate)
+
+    const width = options.width || measureSize.width
+    const height = options.height || measureSize.height
+
+    configCanvas({ width, height })
+
+    ctx.fillStyle = color!
+    ctx.font = `${fontWeight}, ${fontSize}px, ${fontFamily}`
+    ctx.textBaseline = 'top'
+    ;[...content].forEach((item, index) => {
+      const { height: lineHeight, width: lineWidth } =
+        measureSize.lineSize[index]
+
+      const xStartPoint = -lineWidth / 2
+      const yStartPont =
+        -(options.height || measureSize.originHeight) / 2 + lineHeight * index
+
+      ctx.fillText(
+        item,
+        xStartPoint,
+        yStartPont,
+        options.width || measureSize.width,
+      )
+    })
+
+    return Promise.resolve({ base64Url: canvas.toDataURL(), height, width })
+  }
+
+  const drawImage = () => {
+    return new Promise<{ width: number; height: number; base64Url: string }>(
+      (resolve) => {
+        const img = new Image()
+        img.crossOrigin = 'anonymous'
+        img.referrerPolicy = 'no-referrer'
+
+        img.src = image
+
+        img.onload = () => {
+          let { width, height } = options
+          if (!width || !height) {
+            if (width) {
+              height = (img.height / img.width) * +width
+            } else {
+              width = (img.width / img.height) * +height
+            }
+          }
+          configCanvas({ width, height })
+
+          ctx.drawImage(img, -width / 2, -height / 2, width, height)
+          return resolve({ base64Url: canvas.toDataURL(), width, height })
+        }
+
+        img.onerror = () => {
+          return drawText()
+        }
+      },
+    )
+  }
 
   return image ? drawImage() : drawText()
 }
@@ -96,6 +213,7 @@ export default function useWatermark(params: WatermarkOptions) {
   const mergedOptions = getMergedOptions(options)
   const { zIndex, gap } = mergedOptions
   const watermarkDivRef = useRef<HTMLDivElement>()
+  const mutationObserver = useRef<MutationObserver>()
 
   const container = mergedOptions.getContainer()
 
@@ -103,12 +221,51 @@ export default function useWatermark(params: WatermarkOptions) {
     if (!container) return
 
     getCanvasData(mergedOptions).then(({ width, height, base64Url }) => {
+      if (container) {
+        mutationObserver.current?.disconnect()
+
+        mutationObserver.current = new MutationObserver((mutations) => {
+          const isChanged = mutations.some((mutation) => {
+            let flag = false
+            if (mutation.removedNodes.length) {
+              flag = Array.from(mutation.removedNodes).some(
+                (node) => node === watermarkDivRef.current,
+              )
+            }
+            if (
+              mutation.type === 'attributes' &&
+              mutation.target === watermarkDivRef.current
+            ) {
+              flag = true
+            }
+            return flag
+          })
+
+          if (isChanged) {
+            watermarkDivRef.current?.parentNode?.removeChild(
+              watermarkDivRef.current,
+            )
+            watermarkDivRef.current = undefined
+            drawWatermark()
+          }
+        })
+
+        mutationObserver.current.observe(container, {
+          attributes: true,
+          subtree: true,
+          childList: true,
+        })
+      }
+
+      const offsetLeft = mergedOptions.offset[0] + 'px'
+      const offsetTop = mergedOptions.offset[1] + 'px'
+
       const wmStyle = `
-        width:100%; 
-        height:100%; 
+        width:calc(100% - ${offsetLeft}); 
+        height:calc(100% - ${offsetTop}); 
         position:absolute;
-        top:0; 
-        left:0;
+        top:${offsetTop}; 
+        left:${offsetLeft};
         bottom:0;
         right:0;
         pointer-events:none;
