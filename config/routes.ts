@@ -428,6 +428,24 @@ const WatermarkMenu = [
   },
 ]
 
+// form表单组件
+const FormMenu = [
+  {
+    path: '/customCom/form',
+    redirect: '/customCom/form/antdFrom',
+  },
+  {
+    name: 'antdFrom',
+    path: '/customCom/form/antdFrom',
+    component: './CustomCom/CustomForm/AntdForm',
+  },
+  {
+    name: 'customForm',
+    path: '/customCom/form/customForm',
+    component: './CustomCom/CustomForm/CustomForm',
+  },
+]
+
 // 自定义组件
 const customComMemu = [
   {
@@ -453,6 +471,11 @@ const customComMemu = [
     name: 'Watermark',
     path: '/customCom/watermark',
     routes: WatermarkMenu,
+  },
+  {
+    name: 'Form',
+    path: '/customCom/form',
+    routes: FormMenu,
   },
 ]
 
