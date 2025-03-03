@@ -221,6 +221,34 @@ export default function useWatermark(params: WatermarkOptions) {
     if (!container) return
 
     getCanvasData(mergedOptions).then(({ width, height, base64Url }) => {
+      const offsetLeft = mergedOptions.offset[0] + 'px'
+      const offsetTop = mergedOptions.offset[1] + 'px'
+
+      const wmStyle = `
+        width:calc(100% - ${offsetLeft}); 
+        height:calc(100% - ${offsetTop}); 
+        position:absolute;
+        top:${offsetTop}; 
+        left:${offsetLeft};
+        bottom:0;
+        right:0;
+        pointer-events:none;
+        z-index:${zIndex};
+        background-position:0 0;
+        background-repeat:repeat;
+        background-size:${gap[0] + width}px ${gap[1] + height} px;
+        background-image:url(${base64Url})
+        `
+
+      if (!watermarkDivRef.current) {
+        const div = document.createElement('div')
+        watermarkDivRef.current = div
+        container.append(div)
+        container.style.position = 'relative'
+      }
+
+      watermarkDivRef.current?.setAttribute('style', wmStyle)
+
       if (container) {
         mutationObserver.current?.disconnect()
 
@@ -256,34 +284,6 @@ export default function useWatermark(params: WatermarkOptions) {
           childList: true,
         })
       }
-
-      const offsetLeft = mergedOptions.offset[0] + 'px'
-      const offsetTop = mergedOptions.offset[1] + 'px'
-
-      const wmStyle = `
-        width:calc(100% - ${offsetLeft}); 
-        height:calc(100% - ${offsetTop}); 
-        position:absolute;
-        top:${offsetTop}; 
-        left:${offsetLeft};
-        bottom:0;
-        right:0;
-        pointer-events:none;
-        z-index:${zIndex};
-        background-position:0 0;
-        background-repeat:repeat;
-        background-size:${gap[0] + width}px ${gap[1] + height} px;
-        background-image:url(${base64Url})
-        `
-
-      if (!watermarkDivRef.current) {
-        const div = document.createElement('div')
-        watermarkDivRef.current = div
-        container.append(div)
-        container.style.position = 'relative'
-      }
-
-      watermarkDivRef.current?.setAttribute('style', wmStyle)
     })
   }
 
